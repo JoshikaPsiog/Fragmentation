@@ -19,6 +19,7 @@ namespace controllers.controller
             int charsPerFile = view.GetCharsPerFile();
             int totalFiles = model.SplitParagraph(paragraph, charsPerFile);
             view.DisplayMessage($"\nParagraph split into {totalFiles} files successfully!");
+            string compare = "";
 
             while (true)
             {
@@ -32,10 +33,32 @@ namespace controllers.controller
                 }
                 else if (choice == 2)
                 {
-                    model.CombineFiles(totalFiles);
+                    compare = model.CombineFiles(totalFiles);
                     view.DisplayMessage("\nAll split files combined into output.txt!");
                 }
                 else if (choice == 3)
+                {
+                    foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.txt"))
+                    {
+                        File.Delete(file);  // deletes everything including input.txt and output.txt
+                    }
+                    view.DisplayMessage("\nAll txt files are deleted");
+                }
+
+                else if (choice == 4)
+                {
+                    view.DisplayMessage("\nchecking Input and Output files");
+                    if (compare == paragraph)
+                    {
+                        view.DisplayMessage("\n both are same");
+                    }
+                    else
+                    {
+                        view.DisplayMessage("not same");
+                    }
+                    
+                }
+                else if (choice == 5)
                 {
                     view.DisplayMessage("\nExiting program...");
                     break;

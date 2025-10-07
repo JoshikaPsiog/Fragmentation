@@ -48,7 +48,7 @@ namespace models.model
             return File.ReadAllText(fileName);
         }
 
-        public void CombineFiles(int totalFiles)
+        public string CombineFiles(int totalFiles)
         {
             int digits = totalFiles < 10 ? 1 : (totalFiles < 100 ? 2 : 3);
             string combinedText = "";
@@ -60,9 +60,13 @@ namespace models.model
                                   $"{i + 1}.txt";
 
                 combinedText += File.ReadAllText(fileName);
+                
             }
 
             File.WriteAllText("output.txt", combinedText);
+            return combinedText;
         }
+
+       
     }
 }

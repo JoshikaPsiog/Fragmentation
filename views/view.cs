@@ -16,24 +16,45 @@ namespace view.views
                     break;
                 paragraph += line + Environment.NewLine;
             }
-            return paragraph;
+            return paragraph.TrimEnd();
+
         }
 
         public int GetCharsPerFile()
         {
-            Console.Write("\nEnter number of characters per file: ");
-            return int.Parse(Console.ReadLine());
+            int charsPerFile;
+            while (true)
+            {
+                Console.Write("Enter number of characters per file: ");
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out charsPerFile) && charsPerFile > 0)
+                    break;
+                Console.WriteLine("Invalid input! Please enter a positive number.");
+            }
+            return charsPerFile;
         }
 
         public int ShowMenu()
         {
-            Console.WriteLine("\nOptions:");
-            Console.WriteLine("1 - View a split file");
-            Console.WriteLine("2 - Combine all split files into output.txt");
-            Console.WriteLine("3 - Exit");
-            Console.Write("Enter your choice: ");
-            return int.Parse(Console.ReadLine());
+            while (true)
+            {
+                Console.WriteLine("\nOptions:");
+                Console.WriteLine("1 - View a split file");
+                Console.WriteLine("2 - Combine all split files into output.txt");
+                Console.WriteLine("3 - Delete all split files and exit");
+                Console.WriteLine("4 - Compare input and output");
+                Console.WriteLine("5 - Exit");
+                Console.Write("Enter your choice: ");
+
+                string input = Console.ReadLine();
+                int choice;
+                if (int.TryParse(input, out choice) && choice >= 1 && choice <= 5)
+                    return choice;
+
+                Console.WriteLine("Invalid input! Please enter a number between 1 and 5.");
+            }
         }
+
 
         public int AskFileNumber(int totalFiles)
         {
